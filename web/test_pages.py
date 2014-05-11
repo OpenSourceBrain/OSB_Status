@@ -52,7 +52,7 @@ class TestWebPages(unittest.TestCase):
     def test_home(self):
         soup = self.check_general_aspects()
         #CHECKING SPECIFIC ASPECTS
-        self.assertIsNotNone(soup.find(id="osbcircle"), CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(id="myCarouselMainPage"), CONTENT_PAGE_ERROR)
 
     def test_projects(self):
         soup = self.check_general_aspects()

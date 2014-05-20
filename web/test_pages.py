@@ -8,6 +8,7 @@ USERNAME = None
 PASSWORD = None
 
 url_base = "http://opensourcebrain.org/"
+#url_base = "http://comodl.org/"
 
 url_path = {}
 #Home Page
@@ -28,7 +29,7 @@ url_path["test_search"] = "search?q=purkinje"
 url_path["test_user"] = "users/4"
 #Group
 url_path["test_groups"] = "groups/7"
-#Project
+#Project OSB
 url_path["test_projectIndex"] = "projects/osb"
 url_path["test_projectActivity"] = "projects/osb/activity"
 url_path["test_projectWiki"] = "projects/osb/wiki"
@@ -36,6 +37,10 @@ url_path["test_projectFiles"] = "projects/osb/files"
 url_path["test_projectSettings"] = "projects/osb/settings"
 url_path["test_projectIssues"] = "projects/osb/issues"
 url_path["test_projectNews"] = "projects/osb/news"
+
+#Project nc_superdeep
+url_path["test_projectIndex_nc_superdeep"] = "projects/nc_superdeep"
+
 
 #ERRORS
 CONTENT_PAGE_ERROR = "Content Page Error"
@@ -207,6 +212,19 @@ class TestWebPages(unittest.TestCase):
         #CONTENT
         self.assertIsNotNone(soup.find_all(class_="author"), CONTENT_PAGE_ERROR)
         self.assertIsNotNone(soup.find_all(class_="wiki"), CONTENT_PAGE_ERROR)
+        
+    def test_projectIndex_nc_superdeep(self):
+        soup = self.check_general_aspects(page_title = 'Overview - CA1 Pyramidal Sublayer Microcircuit - Lee et al 2014  - Open Source Brain')
+        #CHECKING SPECIFIC ASPECTS
+        #NAV BAR
+        self.assertIsNotNone(soup.find_all(id="menucontainer"), CONTENT_PAGE_ERROR) 
+        #CHECK TABS
+        self.assertIsNotNone(soup.find_all(href="#description"), CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(id="description"), CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find_all(href="#members"), CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(id="members"), CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find_all(href="#references"), CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(id="references"), CONTENT_PAGE_ERROR)
         
     def check_general_aspects(self, page_title='Open Source Brain', check_header_footer=True):
         url = url_base + url_path[self._testMethodName]

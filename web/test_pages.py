@@ -3,19 +3,24 @@ import unittest
 import sys
 from bs4 import BeautifulSoup
 import generalfunctions
+import re
 
 USERNAME = None
 PASSWORD = None
 
-url_base = "http://opensourcebrain.org/"
+# url_base = "http://opensourcebrain.org/"
 #url_base = "http://comodl.org/"
+url_base = "http://127.0.0.1:3000/"
 
 url_path = {}
 #Home Page
 url_path["test_home"] = ""
 #OSB Explore
 url_path["test_projects"] = "projects"
-url_path["test_projectsGraph"] = "projects/cells"
+url_path["test_projectsGraph"] = "projects/cells_graph"
+url_path["test_projectsList"] = "projects/cells_list"
+url_path["test_projectsCarousel"] = "projects/cells_gallery"
+url_path["test_projectsCloud"] = "projects/cells_tags"
 url_path["test_technology"] = "projects/technology"
 url_path["test_projectsGroups"] = "projects/groups"
 url_path["test_people"] = "projects/people"
@@ -73,14 +78,30 @@ class TestWebPages(unittest.TestCase):
         #CHECKING SPECIFIC ASPECTS
         #GRAPH TAB
         self.assertIsNotNone(soup.find(id="jsontree"), CONTENT_PAGE_ERROR)
+        
+    def test_projectsList(self):     
+        soup = self.check_general_aspects(check_header_footer=False)
+        #CHECKING SPECIFIC ASPECTS
         #LIST TAB
         self.assertIsNotNone(soup.find(id="cellslist"), CONTENT_PAGE_ERROR)
         self.assertIsNotNone(soup.find(href="#cell9"), CONTENT_PAGE_ERROR)
+        
+    def test_projectsCarousel(self):     
+        soup = self.check_general_aspects(check_header_footer=False)
+        #CHECKING SPECIFIC ASPECTS
         #CAROUSEL TAB
         self.assertIsNotNone(soup.find(id="myCarousel"), CONTENT_PAGE_ERROR)
         self.assertIsNotNone(soup.find(href="/projects/purkinjecell"), CONTENT_PAGE_ERROR)
         
         #self.assertIsNotNone(soup.find_all("svg"), CONTENT_PAGE_ERROR)
+        
+    def test_projectsCloud(self):     
+        soup = self.check_general_aspects(check_header_footer=False)
+        #CHECKING SPECIFIC ASPECTS
+        #TAGS CLOUD TAB
+        self.assertIsNotNone(soup.find(id="tagCanvas"), CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find_all(href=re.compile("neuroConstruct")), CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find_all(href=re.compile("Detailed cell model")), CONTENT_PAGE_ERROR)
         
     def test_technology(self):
         soup = self.check_general_aspects(check_header_footer=False)

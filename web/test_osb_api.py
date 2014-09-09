@@ -25,6 +25,8 @@ class TestAPI(unittest.TestCase):
     def setUpClass(cls):
         generalfunctions.USERNAME = USERNAME
         generalfunctions.PASSWORD = PASSWORD  
+        generalfunctions.url_base = url_base
+        generalfunctions.url_path = url_path
 
     def test_projects(self):
         soup = self.check_general_aspects()
@@ -33,13 +35,7 @@ class TestAPI(unittest.TestCase):
      
         
     def check_general_aspects(self, page_title='Open Source Brain'):
-        url = url_base + url_path[self._testMethodName]
-        page, e = generalfunctions.get_page(url)
-        if e is not None:
-            exceptionMessage = "URL: %s produced error %d (%s)" % (url,e.code,e.msg)
-            self.fail(exceptionMessage)
-            
-        self.assertIsNotNone(page, CONTENT_PAGE_ERROR + " / Page is blank")
+        page = generalfunctions.getPageContent(self)
         soup = BeautifulSoup(page)
         return soup
 

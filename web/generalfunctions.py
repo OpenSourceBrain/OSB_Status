@@ -6,6 +6,8 @@ import smtplib
 
 USERNAME = None
 PASSWORD = None
+#ERRORS
+CONTENT_PAGE_ERROR = "Content Page Error"
 
 def get_page(url,username=None,password=None):
     request = urllib2.Request(url)
@@ -28,6 +30,16 @@ def get_page(url,username=None,password=None):
     else:
         result = response.read()
     return result, None
+
+def getPageContent(self):
+    url = url_base + url_path[self._testMethodName]
+    page, e = get_page(url)
+    if e is not None:
+        exceptionMessage = "URL: %s produced error %d (%s)" % (url,e.code,e.msg)
+        self.fail(exceptionMessage)
+        
+    self.assertIsNotNone(page, CONTENT_PAGE_ERROR + " / Page is blank")
+    return page
 
     
 def sendmail(from_who, to, msg):

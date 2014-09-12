@@ -39,7 +39,6 @@ url_path["test_neuromlvalidator_samples"] = "NeuroMLValidator/Samples.jsp"
 url_path["test_neuromlvalidator_neuroml_level2"] = "NeuroMLValidator/NeuroMLFiles/Schemata/v1.8.1/Level2/NeuroML_Level2_v1.8.1.xsd"
 
 #Neuroml2core
-url_path["test_neuroml2coretypes"] = "NeuroML2CoreTypes/"
 url_path["test_neuroml2coretypes_pynn"] = "NeuroML2CoreTypes/PyNN.html#IF_curr_alpha"
 
 #Temporal Webs
@@ -127,32 +126,89 @@ class TestWebPages(unittest.TestCase):
     def test_specifications(self):
         soup = self.check_general_aspects()
         #CHECKING SPECIFIC ASPECTS
+        self.assertIsNotNone(soup.find(text="Specifications"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find("h3"), generalfunctions.CONTENT_PAGE_ERROR)
 
     def test_examples(self):
         soup = self.check_general_aspects()
         #CHECKING SPECIFIC ASPECTS
+        self.assertIsNotNone(soup.find(text="Examples"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find_all("table"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(text="Level 1: "), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(text="Level 2: "), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(text="Level 3: "), generalfunctions.CONTENT_PAGE_ERROR)
         
     def test_relevant_publications(self):
         soup = self.check_general_aspects()
         #CHECKING SPECIFIC ASPECTS
+        self.assertIsNotNone(soup.find(text="Publications"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(text="Book Chapters"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(text="Abstracts"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find_all(href="http://www.ncbi.nlm.nih.gov/pubmed/24795618"), generalfunctions.CONTENT_PAGE_ERROR)
         
     def test_tool_support(self):
         soup = self.check_general_aspects()
         #CHECKING SPECIFIC ASPECTS
+        self.assertIsNotNone(soup.find(text="Current Application Support For NeuroML"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(id="longlist"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find_all(href="http://www.neurodynamics.nl/netmorph.html"), generalfunctions.CONTENT_PAGE_ERROR)
         
     def test_browse_models(self):
         soup = self.check_general_aspects()
         #CHECKING SPECIFIC ASPECTS
+        self.assertIsNotNone(soup.find(text="Models"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(id="highlighted"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find_all(href="/NeuroMLValidator/Samples.jsp"), generalfunctions.CONTENT_PAGE_ERROR)
         
     def test_history(self):
         soup = self.check_general_aspects()
-        #CHECKING SPECIFIC ASPECTS                
-    
+        #CHECKING SPECIFIC ASPECTS
+        self.assertIsNotNone(soup.find(text="A Brief History of NeuroML"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find_all(href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1088511/"), generalfunctions.CONTENT_PAGE_ERROR)
+                                  
     def test_projects(self):
         soup = self.check_general_aspects()
         #CHECKING SPECIFIC ASPECTS 
-                                        
+        self.assertIsNotNone(soup.find(text="Projects"), generalfunctions.CONTENT_PAGE_ERROR)   
+        self.assertIsNotNone(soup.find(id="longlist"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(text="Specifications & examples"), generalfunctions.CONTENT_PAGE_ERROR)                             
 
+    ############################ 
+    ## NeuromlValidator Pages ##
+    ############################
+    def test_neuromlvalidator_samples(self):
+        soup = self.check_general_aspects(page_title='Samples of NeuroML files', check_header_footer=False)
+        #CHECKING SPECIFIC ASPECTS
+        self.assertIsNotNone(soup.find(text="Examples of NeuroML files"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find_all("table"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(text="Level 1: "), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(text="Level 2: "), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(text="Level 3: "), generalfunctions.CONTENT_PAGE_ERROR)
+        
+    def test_neuromlvalidator_neuroml_level2(self):
+        soup = self.check_general_aspects(check_title=False, check_header_footer=False)
+        
+    ######################### 
+    ## Neuroml2 Core Pages ##
+    #########################    
+    def test_neuroml2coretypes_pynn(self):
+        soup = self.check_general_aspects_component_types(page_title='PyNN')
+        #CHECKING SPECIFIC ASPECTS
+        self.assertIsNotNone(soup.find(text="PyNN"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find_all("table"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find_all(class_="sidebar-nav"), generalfunctions.CONTENT_PAGE_ERROR)
+    
+    ######################### 
+    ## CRCNS2014 Pages ##
+    #########################
+    def test_CRCNS2014(self):
+        soup = self.check_general_aspects(page_title='CRCNS 2014', check_header_footer=False)
+        #CHECKING SPECIFIC ASPECTS 
+        self.assertIsNotNone(soup.find(text="Local Organizers: Brian Smith and Sharon Crook"), generalfunctions.CONTENT_PAGE_ERROR)
+
+    ########### 
+    ## Utils ##
+    ###########
     def check_general_aspects(self, page_title='NeuroML', check_title=True, check_header_footer=True):
         page = generalfunctions.getPageContent(self)
         soup = BeautifulSoup(page)

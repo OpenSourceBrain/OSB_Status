@@ -42,6 +42,8 @@ url_path["test_projectFiles"] = "projects/osb/files"
 url_path["test_projectSettings"] = "projects/osb/settings"
 url_path["test_projectIssues"] = "projects/osb/issues"
 url_path["test_projectNews"] = "projects/osb/news"
+#Doc
+url_path["test_doc"] = "docs"
 
 #Project nc_superdeep
 url_path["test_projectIndex_nc_superdeep"] = "projects/nc_superdeep"
@@ -72,7 +74,6 @@ class TestWebPages(unittest.TestCase):
         self.assertIsNotNone(soup.find(id="technology"), generalfunctions.CONTENT_PAGE_ERROR)
         self.assertIsNotNone(soup.find(id="groups"), generalfunctions.CONTENT_PAGE_ERROR)
         self.assertIsNotNone(soup.find(id="people"), generalfunctions.CONTENT_PAGE_ERROR)
-        self.assertIsNotNone(soup.find(id="informationOSB"), generalfunctions.CONTENT_PAGE_ERROR)
         
     def test_projectsGraph(self):
         soup = self.check_general_aspects(check_title=False, check_header_footer=False)
@@ -234,6 +235,15 @@ class TestWebPages(unittest.TestCase):
         #CONTENT
         self.assertIsNotNone(soup.find_all(class_="author"), generalfunctions.CONTENT_PAGE_ERROR)
         self.assertIsNotNone(soup.find_all(class_="wiki"), generalfunctions.CONTENT_PAGE_ERROR)
+        
+    def test_doc(self):
+        soup = self.check_general_aspects()
+        #CHECKING SPECIFIC ASPECTS
+        #NAV BAR
+        self.assertIsNotNone(soup.find_all(id="project_overview_list"), generalfunctions.CONTENT_PAGE_ERROR)
+        #CONTENT
+        self.assertIsNotNone(soup.find_all(id="helpTitle"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find_all(class_="page-header"), generalfunctions.CONTENT_PAGE_ERROR)
         
     def test_projectIndex_nc_superdeep(self):
         soup = self.check_general_aspects(page_title = 'Overview - CA1 Pyramidal Sublayer Microcircuit - Lee et al 2014  - Open Source Brain')

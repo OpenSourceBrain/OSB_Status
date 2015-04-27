@@ -10,7 +10,7 @@ PASSWORD = None
 
 url_base = "http://opensourcebrain.org/"
 # url_base = "http://comodl.org/"
-# url_base = "http://127.0.0.1:3000/"
+#url_base = "http://127.0.0.1:3000/"
 
 url_path = {}
 #Home Page
@@ -65,7 +65,7 @@ class TestWebPages(unittest.TestCase):
     def test_home(self):
         soup = self.check_general_aspects()
         #CHECKING SPECIFIC ASPECTS
-        self.assertIsNotNone(soup.find(id="myCarouselMainPage"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(id="carouselMainPage"), generalfunctions.CONTENT_PAGE_ERROR)
 
     def test_projects(self):
         soup = self.check_general_aspects()
@@ -92,7 +92,7 @@ class TestWebPages(unittest.TestCase):
         soup = self.check_general_aspects(check_title=False, check_header_footer=False)
         #CHECKING SPECIFIC ASPECTS
         #CAROUSEL TAB
-        self.assertIsNotNone(soup.find(id="myCarousel"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(id="carouselMainPage"), generalfunctions.CONTENT_PAGE_ERROR)
         self.assertIsNotNone(soup.find(href="/projects/purkinjecell"), generalfunctions.CONTENT_PAGE_ERROR)
         
         #self.assertIsNotNone(soup.find_all("svg"), generalfunctions.CONTENT_PAGE_ERROR)

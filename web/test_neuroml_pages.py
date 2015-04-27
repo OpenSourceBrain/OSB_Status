@@ -111,7 +111,7 @@ class TestWebPages(unittest.TestCase):
     def test_old_view(self):
         soup = self.check_general_aspects()
         #CHECKING SPECIFIC ASPECTS
-        self.assertIsNotNone(soup.find(text="Specifications"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(text="Specifications for NeuroML v1.8.1"), generalfunctions.CONTENT_PAGE_ERROR)
         self.assertIsNotNone(soup.find("h3"), generalfunctions.CONTENT_PAGE_ERROR)
 
     def test_old_lems(self):
@@ -126,7 +126,7 @@ class TestWebPages(unittest.TestCase):
     def test_specifications(self):
         soup = self.check_general_aspects()
         #CHECKING SPECIFIC ASPECTS
-        self.assertIsNotNone(soup.find(text="Specifications"), generalfunctions.CONTENT_PAGE_ERROR)
+        self.assertIsNotNone(soup.find(text="Specifications for NeuroML v1.8.1"), generalfunctions.CONTENT_PAGE_ERROR)
         self.assertIsNotNone(soup.find("h3"), generalfunctions.CONTENT_PAGE_ERROR)
 
     def test_examples(self):
@@ -169,7 +169,7 @@ class TestWebPages(unittest.TestCase):
     def test_projects(self):
         soup = self.check_general_aspects()
         #CHECKING SPECIFIC ASPECTS 
-        self.assertIsNotNone(soup.find(text="Projects"), generalfunctions.CONTENT_PAGE_ERROR)   
+        self.assertIsNotNone(soup.find(text="Get NeuroML"), generalfunctions.CONTENT_PAGE_ERROR)   
         self.assertIsNotNone(soup.find(id="longlist"), generalfunctions.CONTENT_PAGE_ERROR)
         self.assertIsNotNone(soup.find(text="Specifications & examples"), generalfunctions.CONTENT_PAGE_ERROR)                             
 

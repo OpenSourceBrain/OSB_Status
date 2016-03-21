@@ -21,7 +21,6 @@ url_path["test_old_meetings"] = "meetings.php" #Redirect to workshops
 url_path["test_old_neuroml2coretypes_cells"] = "NeuroML2CoreTypes/Cells.html" 
 url_path["test_old_neuromlvalidator_string"] = "NeuroMLValidator/Validation.jsp?pastedFile=%3Cb%3Ell%3C/b%3E"
 url_path["test_old_neuromlvalidator_file"] = "NeuroMLValidator/Transform.jsp?localFile=NeuroMLFiles/Schemata/v1.8.1/Level1/MorphML_v1.8.1.xsd&xslFile=NeuroMLFiles/Schemata/XSD_Readable.xsl"
-url_path["test_old_neuromlvalidator_extending"] = "NeuroMLValidator/Extending.jsp"
 url_path["test_old_view"] = "view.php"
 url_path["test_old_lems"] = "lems/"
 
@@ -101,12 +100,6 @@ class TestWebPages(unittest.TestCase):
         self.assertIsNotNone(soup.find(text="Converting the file: MorphML_v1.8.1.xsd"), generalfunctions.CONTENT_PAGE_ERROR)
         self.assertIsNotNone(soup.find(text="SpineShape"), generalfunctions.CONTENT_PAGE_ERROR)
         
-    def test_old_neuromlvalidator_extending(self):
-        soup = self.check_general_aspects()
-        #CHECKING SPECIFIC ASPECTS
-        self.assertIsNotNone(soup.find(text="Extending NeuroML"), generalfunctions.CONTENT_PAGE_ERROR)
-        self.assertIsNotNone(soup.find(text="Clarifying the question"), generalfunctions.CONTENT_PAGE_ERROR)
-        self.assertIsNotNone(soup.find(text="Annotate files with model/application specific data"), generalfunctions.CONTENT_PAGE_ERROR)
 
     def test_old_view(self):
         soup = self.check_general_aspects()
@@ -209,7 +202,7 @@ class TestWebPages(unittest.TestCase):
     ########### 
     ## Utils ##
     ###########
-    def check_general_aspects(self, page_title='NeuroML', check_title=True, check_header_footer=True):
+    def check_general_aspects(self, page_title='NeuroML - A Model Description Language for Computational Neuroscience', check_title=True, check_header_footer=True):
         page = generalfunctions.getPageContent(self)
         soup = BeautifulSoup(page)
         

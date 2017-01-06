@@ -9,6 +9,7 @@ PASSWORD = None
 #ERRORS
 CONTENT_PAGE_ERROR = "Content Page Error"
 
+
 def get_page(url,username=None,password=None):
     request = urllib2.Request(url)
     if username is None:
@@ -31,6 +32,10 @@ def get_page(url,username=None,password=None):
         result = response.read()
     return result, None
 
+def getPageContent(url):
+    if not url:
+        url = url_base + url_path[self._testMethodName]
+    return get_page(url)
     
 def sendmail(from_who, to, msg):
     s = smtplib.SMTP('localhost')

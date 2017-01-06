@@ -33,10 +33,13 @@ class TestAPI(unittest.TestCase):
         #CHECKING SPECIFIC ASPECTS
         #self.assertIsNotNone(soup.find(id="osbcircle"), CONTENT_PAGE_ERROR)
      
-        
     def check_general_aspects(self, page_title='Open Source Brain'):
-        page = generalfunctions.getPageContent(self)
-        soup = BeautifulSoup(page)
+        page, e = generalfunctions.getPageContent(url_base + url_path[self._testMethodName])
+        if e is not None:
+            exceptionMessage = "URL: %s produced error %d (%s)" % (url,e.code,e.msg)
+            self.fail(exceptionMessage)
+        self.assertIsNotNone(page, CONTENT_PAGE_ERROR + " / Page is blank")
+        soup = BeautifulSoup(page, "lxml")
         return soup
 
 if __name__ == '__main__':

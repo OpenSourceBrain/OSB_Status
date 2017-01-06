@@ -218,7 +218,7 @@ class TestWebPages(unittest.TestCase):
         return soup
     
     def check_general_aspects_component_types(self, page_title='Cells', check_title=True, check_header_footer=True):
-        page = getPageContent(url_base + url_path[self._testMethodName])
+        page, e = getPageContent(url_base + url_path[self._testMethodName])
         soup = BeautifulSoup(page, "lxml")
         
         if check_title:
